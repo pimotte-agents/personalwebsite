@@ -1,0 +1,118 @@
+# Riddles with animals
+<hint title="📦 Import libraries (click to open/close)">
+```coq
+Require Import Coq.Reals.Reals.
+Require Import Waterproof.Tactics.
+Require Import Waterproof.Notations.Common.
+Require Import Waterproof.Notations.Reals.
+Require Import Waterproof.Notations.Sets.
+Require Import Waterproof.Chains.
+
+Require Import Waterproof.Libs.Analysis.SupAndInf.
+
+Require Import Waterproof.Automation.
+
+Waterproof Enable Automation RealsAndIntegers.
+Waterproof Enable Automation Intuition.
+
+Open Scope R_scope.
+Open Scope subset_scope.
+
+Set Default Goal Selector "!".
+
+Section orphan_black.
+
+Local Parameter Animals : Set.
+Local Parameter Polly : Animals.
+Variable pig : Animals → Prop.
+Variable predator : Animals → Prop.
+Variable pet : Animals → Prop.
+Variable bird : Animals → Prop.
+Variable Fruits : Type.
+Parameter mango : Fruits → Prop.
+Parameter golden : Fruits → Prop.
+Parameter cheap : Fruits → Prop.
+Variable parrot : Animals → Prop.
+
+
+Notation "x 'is' 'a' B" := (B x) (at level 50).
+Notation "x 'is' B" := (B x) (at level 50).
+
+```
+</hint>
+
+## Logic
+
+* Polly the parrot
+  * All parrots are birds
+  * Polly is a parrot
+  * Conclusion: Polly is a bird.
+
+```coq
+Lemma polly : 
+  (∀ a : Animals, (a is a parrot) ⇒ (a is a bird)) ⇒
+  (Polly is a parrot) ⇒
+  (Polly is a bird).
+Proof.
+```
+<input-area>
+```coq
+Assume that (∀ a : Animals, (a is a parrot) ⇒ (a is a bird)).
+Assume that (Polly is a parrot).
+We conclude that (Polly is a bird).
+```
+</input-area>
+```coq
+Qed.
+```
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+## Logic (harder)
+
+* Pigs and predators
+  * Some pigs are predators
+  * No predators are pets
+  * Conclusion: Some pig is not a pet.
+```coq
+Lemma pigs : 
+  (∃ x : Animals, x is a predator ∧ x is a pig) ⇒
+  (¬ (∃ y : Animals, y is a predator ∧ y is a pet)) ⇒ 
+  (∃ z : Animals, z is a pig ∧ ¬ (z is a pet)).
+Proof.
+```
+<input-area>
+```coq
+Assume that (∃ x : Animals, x is a predator ∧ x is a pig).
+Obtain such a x.
+Assume that (¬ (∃ y : Animals, y is a predator ∧ y is a pet)).
+It holds that (∀ y : Animals, ¬ y is a predator ∨ ¬ y is a pet).
+Choose z := x.
+We show both statements.
++ We conclude that (z is a pig).
++ We conclude that (¬ z is a pet).
+```
+</input-area>
+```coq
+Qed.
+```
+
