@@ -75,6 +75,24 @@ nodes:
 
   halmos: {}
 
+  # reference material, not presented: details on trusting an AI-generated proof
+  trusting:
+    type: frame
+    title: "Trusting an AI-generated proof: the details"
+    children: [trust-chain, trust-definitions, trust-statement, trust-mathlib, trust-lean, kernel-bugs,
+               verified-kernels, comparator, comparator-challenge, trust-checklist, trust-refs]
+  trust-chain: {}
+  trust-definitions: {}
+  trust-statement: {}
+  trust-mathlib: {}
+  trust-lean: {}
+  kernel-bugs: {}
+  verified-kernels: {}
+  comparator: {}
+  comparator-challenge: {}
+  trust-checklist: {}
+  trust-refs: { type: references, title: References, size: [1600, 1300] }
+
 edges:
   # main path (Space); each section is a frame, entered by zooming into its first slide
   - title -> overview: { default: true }
@@ -111,3 +129,9 @@ edges:
 
   # cross-link: the AI question is answered at the end of the theory section
   - questions -> trust: { label: "Trusting an AI-generated proof" }
+
+  - trust -> trusting: { label: "Details (reference)" }
+  - trusting -> trust-chain: { default: true, transition: zoom-through }
+  - trust-chain -> trust-definitions -> trust-statement -> trust-mathlib -> trust-lean -> kernel-bugs -> verified-kernels -> comparator -> comparator-challenge -> trust-checklist: { default: true }
+  - trust-checklist -> trust-refs: { default: true }
+  - trust-refs -> trust: { default: true, label: "Back" }
