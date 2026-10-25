@@ -1,0 +1,113 @@
+# Introduction session: Lean, as a wavesol talk (https://github.com/pimotte-agents/wavesol).
+# Space follows the main path (the dep-session version of the slides); the extra material from the
+# full summer-school welcome lecture hangs off it as detours, each returning to where it left.
+# Preview with `npm run dev`; CI builds it into ../public/lean (served at /lean).
+$schema: ./node_modules/wavesol/schema/talk.schema.json
+title: "Introduction session: Lean"
+authors: [Pim Otte]
+
+theme:
+  base: academic-light
+
+transitions:
+  default: fly
+
+layout:
+  algorithm: force
+
+nodes:
+  title: {}
+
+  overview:
+    type: frame
+    title: Overview / motivation
+    children: [oai, questions, formalization, case-studies]
+  oai: {}
+  questions: {}
+  formalization:
+    type: frame
+    title: What is formalization of mathematics?
+    children: [formalize, what-formalization, benefits-math, benefits-cs, itps]
+  formalize: {}
+  what-formalization: {}
+  benefits-math: {}
+  benefits-cs: {}
+  itps: {}
+  case-studies:
+    type: frame
+    title: Case studies in formalized maths
+    children: [automath, four-colour, flyspeck, lte-theorem, lte-doubts, lte-history, lte-ram,
+               equational, equational-result, alphaproof, ten-advances]
+  automath: {}
+  four-colour: {}
+  flyspeck: {}
+  lte-theorem: {}
+  lte-doubts: {}
+  lte-history: {}
+  lte-ram: {}
+  equational: {}
+  equational-result: {}
+  alphaproof: {}
+  ten-advances: {}
+
+  what-is-lean:
+    type: frame
+    title: What is Lean?
+    children: [demo, lean4, history, mathlib, tactics, proof-terms, exact, declarations]
+  demo: {}
+  lean4: {}
+  history: {}
+  mathlib: {}
+  tactics: {}
+  proof-terms: {}
+  exact: {}
+  declarations: {}
+
+  theory:
+    type: frame
+    title: Superfast theory crash course
+    children: [foundations, naive-tt, curry-howard, typing, trust]
+  foundations: {}
+  naive-tt: {}
+  curry-howard: {}
+  typing: {}
+  trust: {}
+
+  halmos: {}
+
+edges:
+  # main path (Space); each section is a frame, entered by zooming into its first slide
+  - title -> overview: { default: true }
+  - overview -> oai: { default: true, transition: zoom-through }
+  - oai -> questions -> what-is-lean: { default: true }
+  - what-is-lean -> lean4: { default: true, transition: zoom-through }
+  - lean4 -> mathlib -> tactics -> proof-terms -> declarations -> theory: { default: true }
+  - theory -> naive-tt: { default: true, transition: zoom-through }
+  - naive-tt -> curry-howard -> typing -> trust -> halmos: { default: true }
+  - halmos -> title: { label: "Back to the start", transition: fade }
+
+  # detours: buttons off the main path; Space at their end rejoins it
+  - overview -> formalization: { label: "Detour: what is formalization?" }
+  - formalization -> formalize: { default: true, transition: zoom-through }
+  - formalize -> what-formalization -> benefits-math -> benefits-cs -> itps: { default: true }
+  - itps -> oai: { default: true }
+
+  - oai -> case-studies: { label: "Detour: case studies" }
+  - case-studies -> automath: { default: true, transition: zoom-through }
+  - automath -> four-colour -> flyspeck -> lte-theorem -> lte-doubts -> lte-history -> lte-ram -> equational -> equational-result -> alphaproof -> ten-advances: { default: true }
+  - ten-advances -> oai: { default: true, label: "Back" }
+
+  - what-is-lean -> demo: { label: "Demo" }
+  - demo -> lean4: { default: true }
+
+  - lean4 -> history: { label: "History of Lean" }
+  - history -> lean4: { default: true, label: "Back" }
+
+  - proof-terms -> exact: { label: "Proof terms by hand" }
+  - exact -> proof-terms: { default: true, label: "Back" }
+
+  - theory -> foundations: { label: "Foundations" }
+  - foundations -> naive-tt: { default: true }
+
+  # cross-link: the AI question is answered at the end of the theory section
+  - questions -> trust: { label: "Trusting an AI-generated proof" }
