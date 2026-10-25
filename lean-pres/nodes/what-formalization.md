@@ -8,5 +8,3 @@ This can be done theoretically: proof theory is a subfield of maths
 
 But also practically: using *interactive theorem provers*
 :::
-
-This week we will focus on the practical side, using Lean {.fragment}
