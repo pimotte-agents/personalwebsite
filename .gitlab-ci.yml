@@ -2,9 +2,28 @@
 image: node:lts
 # Functions that should be executed before the build script is run
 before_script: []
-pages:
+
+# Builds the wavesol presentation in lean-pres/ into public/lean (served at /lean)
+.build-lean-pres:
+  variables:
+    # elan inside the project, so the toolchain can be cached
+    ELAN_HOME: $CI_PROJECT_DIR/.elan
+  cache:
+    - key:
+        files: [lean-pres/package-lock.json]
+      paths: [.npm/]
+    # the Lean slides: the toolchain and the SubVerso build (a few minutes when not cached)
+    - key:
+        files: [lean-pres/lean/lean-toolchain, lean-pres/lean/lake-manifest.json]
+      paths: [.elan/, lean-pres/lean/.lake/]
   script:
-    - echo "Done"
+    - curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+    - export PATH="$ELAN_HOME/bin:$PATH"
+    - npm ci --prefix lean-pres --cache .npm --prefer-offline
+    - npm run build --prefix lean-pres
+
+pages:
+  extends: .build-lean-pres
   artifacts:
     paths:
       # The folder that contains the files to be exposed at the Page URL
@@ -13,3 +32,9 @@ pages:
     # This ensures that only pushes to the default branch will trigger
     # a pages deploy
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+
+# On other branches, only check that the site builds
+build:
+  extends: .build-lean-pres
+  rules:
+    - if: $CI_COMMIT_REF_NAME != $CI_DEFAULT_BRANCH
