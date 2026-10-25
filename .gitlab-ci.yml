@@ -5,11 +5,20 @@ before_script: []
 
 # Builds the wavesol presentation in lean-pres/ into public/lean (served at /lean)
 .build-lean-pres:
+  variables:
+    # elan inside the project, so the toolchain can be cached
+    ELAN_HOME: $CI_PROJECT_DIR/.elan
   cache:
-    key:
-      files: [lean-pres/package-lock.json]
-    paths: [.npm/]
+    - key:
+        files: [lean-pres/package-lock.json]
+      paths: [.npm/]
+    # the Lean slides: the toolchain and the SubVerso build (a few minutes when not cached)
+    - key:
+        files: [lean-pres/lean/lean-toolchain, lean-pres/lean/lake-manifest.json]
+      paths: [.elan/, lean-pres/lean/.lake/]
   script:
+    - curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+    - export PATH="$ELAN_HOME/bin:$PATH"
     - npm ci --prefix lean-pres --cache .npm --prefer-offline
     - npm run build --prefix lean-pres
 

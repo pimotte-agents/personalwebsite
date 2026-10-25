@@ -1,2 +1,5 @@
 # built from lean-pres/ by CI
 public/lean/
+# CI caches
+.elan/
+.npm/

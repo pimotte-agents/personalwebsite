@@ -53,7 +53,7 @@ nodes:
   what-is-lean:
     type: frame
     title: What is Lean?
-    children: [demo, lean4, history, mathlib, tactics, proof-terms, exact, declarations]
+    children: [demo, lean4, history, mathlib, tactics, proof-terms, exact, declarations, cantor]
   demo: {}
   lean4: {}
   history: {}
@@ -62,6 +62,7 @@ nodes:
   proof-terms: {}
   exact: {}
   declarations: {}
+  cantor: {}
 
   theory:
     type: frame
@@ -99,7 +100,7 @@ edges:
   - overview -> oai: { default: true, transition: zoom-through }
   - oai -> questions -> what-is-lean: { default: true }
   - what-is-lean -> lean4: { default: true, transition: zoom-through }
-  - lean4 -> mathlib -> tactics -> proof-terms -> declarations -> theory: { default: true }
+  - lean4 -> mathlib -> tactics -> proof-terms -> declarations -> cantor -> theory: { default: true }
   - theory -> naive-tt: { default: true, transition: zoom-through }
   - naive-tt -> curry-howard -> typing -> trust -> halmos: { default: true }
   - halmos -> title: { label: "Back to the start", transition: fade }
