@@ -1,6 +1,6 @@
 # ThEdu 2026 talk on Waterproof, as a wavesol talk (https://github.com/pimotte-agents/wavesol).
-# Converted from the beamer slides (pimotte/wp-demo, branch thedu): each beamer section is a frame,
-# the bonus figures from the paper hang off the end as a detour.
+# Converted from the beamer slides (pimotte/wp-demo, branch thedu): frames for what Waterproof is and its
+# context, then one frame for the paper with its sections (and the bonus figures, a detour) as sub-frames.
 # Preview with `npm run dev`; CI builds it into ../public/waterproof (served at /waterproof).
 $schema: ./node_modules/wavesol/schema/talk.schema.json
 title: The Educational Proof Assistant Waterproof in an Introductory Proof Course
@@ -23,19 +23,26 @@ layout:
 nodes:
   title: {}
 
-  motivation:
+  waterproof:
     type: frame
-    title: Motivation
-    children: [what-is-waterproof]
+    title: What is Waterproof?
+    children: [what-is-waterproof, demo]
   what-is-waterproof: {}
+  demo: {}
 
   context-section:
     type: frame
     title: Context
-    children: [context, related-work, demo]
+    children: [context, related-work]
   context: {}
   related-work: {}
-  demo: {}
+
+  # the paper: its sections are frames inside this one
+  paper:
+    type: frame
+    title: The Educational Proof Assistant Waterproof in an Introductory Proof Course
+    children: [methods-section, results, conclusion-section, bonus]
+    layout: { algorithm: grid }
 
   methods-section:
     type: frame
@@ -63,8 +70,6 @@ nodes:
   future-work: {}
   conclusion: {}
 
-  thanks: {}
-
   bonus:
     type: frame
     title: "Bonus: Figures from the paper"
@@ -76,13 +81,16 @@ nodes:
   fig-screenshot: {}
   references: { type: references, title: References }
 
+  thanks: {}
+
 edges:
-  # main path (Space); each section is a frame, entered by zooming into its first slide
-  - title -> motivation: { default: true }
-  - motivation -> what-is-waterproof: { default: true, transition: zoom-through }
-  - what-is-waterproof -> context-section: { default: true }
+  # main path (Space); each frame is entered by zooming into its first child
+  - title -> waterproof: { default: true }
+  - waterproof -> what-is-waterproof: { default: true, transition: zoom-through }
+  - what-is-waterproof -> demo -> context-section: { default: true }
   - context-section -> context: { default: true, transition: zoom-through }
-  - context -> related-work -> demo -> methods-section: { default: true }
+  - context -> related-work -> paper: { default: true }
+  - paper -> methods-section: { default: true, transition: zoom-through }
   - methods-section -> research-questions: { default: true, transition: zoom-through }
   - research-questions -> methods -> results: { default: true }
   - results -> participants: { default: true, transition: zoom-through }
