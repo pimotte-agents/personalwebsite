@@ -1,6 +1,6 @@
 # Waterproof
 
-```qr
+```qr {size=9em}
 https://pim.otte.dev/waterproof/
 ```
 
