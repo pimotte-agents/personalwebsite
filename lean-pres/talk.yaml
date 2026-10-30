@@ -6,6 +6,9 @@ $schema: ./node_modules/wavesol/schema/talk.schema.json
 title: "Introduction session: Lean"
 authors: [Pim Otte]
 
+# umami statistics in the built site (not in `npm run dev`)
+head: ../analytics.html
+
 theme:
   base: academic-light
 

@@ -8,6 +8,9 @@ subtitle: Proof Construction and Learning Processes
 authors: [Pim Otte, Rogier Bos, Johan Commelin, Jim Portegies]
 venue: ThEdu 2026
 
+# umami statistics in the built site (not in `npm run dev`)
+head: ../analytics.html
+
 theme:
   base: academic-light
 
