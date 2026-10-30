@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wavesol dev",
+    "check": "wavesol check",
+    "build": "wavesol build --out ../public/waterproof"
+  },
+  "dependencies": {
+    "wavesol": "github:pimotte-agents/wavesol"
+  }
+}

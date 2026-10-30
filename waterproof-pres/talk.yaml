@@ -1,0 +1,95 @@
+# ThEdu 2026 talk on Waterproof, as a wavesol talk (https://github.com/pimotte-agents/wavesol).
+# Converted from the beamer slides (pimotte/wp-demo, branch thedu): each beamer section is a frame,
+# the bonus figures from the paper hang off the end as a detour.
+# Preview with `npm run dev`; CI builds it into ../public/waterproof (served at /waterproof).
+$schema: ./node_modules/wavesol/schema/talk.schema.json
+title: The Educational Proof Assistant Waterproof in an Introductory Proof Course
+subtitle: Proof Construction and Learning Processes
+authors: [Pim Otte, Rogier Bos, Johan Commelin, Jim Portegies]
+venue: ThEdu 2026
+
+theme:
+  base: academic-light
+
+transitions:
+  default: fly
+
+layout:
+  algorithm: force
+
+nodes:
+  title: {}
+
+  motivation:
+    type: frame
+    title: Motivation
+    children: [what-is-waterproof]
+  what-is-waterproof: {}
+
+  context-section:
+    type: frame
+    title: Context
+    children: [context, related-work, demo]
+  context: {}
+  related-work: {}
+  demo: {}
+
+  methods-section:
+    type: frame
+    title: Methods
+    children: [research-questions, methods]
+  research-questions: {}
+  methods: {}
+
+  results:
+    type: frame
+    title: Results
+    children: [participants, quiz1, quiz1-math-b, proof-analysis, proof-steps, transfer, survey]
+  participants: {}
+  quiz1: {}
+  quiz1-math-b: {}
+  proof-analysis: { size: [1600, 1200] }
+  proof-steps: {}
+  transfer: { size: [1600, 1150] }
+  survey: {}
+
+  conclusion-section:
+    type: frame
+    title: Conclusion
+    children: [future-work, conclusion]
+  future-work: {}
+  conclusion: {}
+
+  thanks: {}
+
+  bonus:
+    type: frame
+    title: "Bonus: Figures from the paper"
+    children: [fig-feedback, fig-hours, fig-timeontask, fig-questions, fig-screenshot, references]
+  fig-feedback: {}
+  fig-hours: {}
+  fig-timeontask: {}
+  fig-questions: {}
+  fig-screenshot: {}
+  references: { type: references, title: References }
+
+edges:
+  # main path (Space); each section is a frame, entered by zooming into its first slide
+  - title -> motivation: { default: true }
+  - motivation -> what-is-waterproof: { default: true, transition: zoom-through }
+  - what-is-waterproof -> context-section: { default: true }
+  - context-section -> context: { default: true, transition: zoom-through }
+  - context -> related-work -> demo -> methods-section: { default: true }
+  - methods-section -> research-questions: { default: true, transition: zoom-through }
+  - research-questions -> methods -> results: { default: true }
+  - results -> participants: { default: true, transition: zoom-through }
+  - participants -> quiz1 -> quiz1-math-b -> proof-analysis -> proof-steps -> transfer -> survey -> conclusion-section: { default: true }
+  - conclusion-section -> future-work: { default: true, transition: zoom-through }
+  - future-work -> conclusion -> thanks: { default: true }
+  - thanks -> title: { label: "Back to the start", transition: fade }
+
+  # appendix: the figures from the paper, for questions
+  - thanks -> bonus: { label: "Bonus: figures from the paper" }
+  - bonus -> fig-feedback: { default: true, transition: zoom-through }
+  - fig-feedback -> fig-hours -> fig-timeontask -> fig-questions -> fig-screenshot -> references: { default: true }
+  - references -> thanks: { default: true, label: "Back" }
