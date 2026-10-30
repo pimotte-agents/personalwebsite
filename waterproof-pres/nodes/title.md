@@ -1,14 +1,10 @@
-# The Educational Proof Assistant Waterproof in an Introductory Proof Course
-
-## Proof Construction and Learning Processes
-
-Pim Otte, Rogier Bos, Johan Commelin, Jim Portegies
-
-*ThEdu 2026*
+# Waterproof
 
 :::: columns
 ::: column
-![TU/e](../figures/tuelogo.png)
+![TU/e](../figures/tuelogo.png){style="height: 170px"}
+
+![Utrecht University](../figures/uulogo.png){style="height: 170px"}
 :::
 ::: column
 ```qr

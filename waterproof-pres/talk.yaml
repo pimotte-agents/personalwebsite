@@ -41,8 +41,9 @@ nodes:
   paper:
     type: frame
     title: The Educational Proof Assistant Waterproof in an Introductory Proof Course
-    children: [methods-section, results, conclusion-section, bonus]
+    children: [paper-title, methods-section, results, conclusion-section, bonus]
     layout: { algorithm: grid }
+  paper-title: {}
 
   methods-section:
     type: frame
@@ -90,7 +91,8 @@ edges:
   - what-is-waterproof -> demo -> context-section: { default: true }
   - context-section -> context: { default: true, transition: zoom-through }
   - context -> related-work -> paper: { default: true }
-  - paper -> methods-section: { default: true, transition: zoom-through }
+  - paper -> paper-title: { default: true, transition: zoom-through }
+  - paper-title -> methods-section: { default: true }
   - methods-section -> research-questions: { default: true, transition: zoom-through }
   - research-questions -> methods -> results: { default: true }
   - results -> participants: { default: true, transition: zoom-through }
