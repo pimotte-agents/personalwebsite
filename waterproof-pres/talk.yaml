@@ -82,6 +82,24 @@ nodes:
   fig-screenshot: {}
   references: { type: references, title: References }
 
+  # work in progress: design principles from the TFPIE paper
+  wip:
+    type: frame
+    title: Work in progress
+    children: [cnl]
+  cnl:
+    type: frame
+    title: Controlled natural language
+    children: [principles]
+  principles:
+    type: frame
+    title: Proposed design principles
+    children: [p1-close-to-paper, p2-teacher-judgement, p3-help-feedback, p4-reflection]
+  p1-close-to-paper: {}
+  p2-teacher-judgement: {}
+  p3-help-feedback: {}
+  p4-reflection: {}
+
   thanks: {}
 
 edges:
@@ -98,7 +116,11 @@ edges:
   - results -> participants: { default: true, transition: zoom-through }
   - participants -> quiz1 -> quiz1-math-b -> proof-analysis -> proof-steps -> transfer -> survey -> conclusion-section: { default: true }
   - conclusion-section -> future-work: { default: true, transition: zoom-through }
-  - future-work -> conclusion -> thanks: { default: true }
+  - future-work -> conclusion -> wip: { default: true }
+  - wip -> cnl: { default: true, transition: zoom-through }
+  - cnl -> principles: { default: true, transition: zoom-through }
+  - principles -> p1-close-to-paper: { default: true, transition: zoom-through }
+  - p1-close-to-paper -> p2-teacher-judgement -> p3-help-feedback -> p4-reflection -> thanks: { default: true }
   - thanks -> title: { label: "Back to the start", transition: fade }
 
   # appendix: the figures from the paper, for questions
