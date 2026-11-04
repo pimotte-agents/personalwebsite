@@ -90,7 +90,7 @@ nodes:
   cnl:
     type: frame
     title: Controlled natural language
-    children: [principles]
+    children: [principles, trade-offs]
   principles:
     type: frame
     title: Proposed design principles
@@ -99,6 +99,11 @@ nodes:
   p2-teacher-judgement: {}
   p3-help-feedback: {}
   p4-reflection: {}
+  trade-offs:
+    type: frame
+    title: Trade-offs
+    children: [detail-automation]
+  detail-automation: {}
 
   thanks: {}
 
@@ -120,7 +125,9 @@ edges:
   - wip -> cnl: { default: true, transition: zoom-through }
   - cnl -> principles: { default: true, transition: zoom-through }
   - principles -> p1-close-to-paper: { default: true, transition: zoom-through }
-  - p1-close-to-paper -> p2-teacher-judgement -> p3-help-feedback -> p4-reflection -> thanks: { default: true }
+  - p1-close-to-paper -> p2-teacher-judgement -> p3-help-feedback -> p4-reflection -> trade-offs: { default: true }
+  - trade-offs -> detail-automation: { default: true, transition: zoom-through }
+  - detail-automation -> thanks: { default: true }
   - thanks -> title: { label: "Back to the start", transition: fade }
 
   # appendix: the figures from the paper, for questions
