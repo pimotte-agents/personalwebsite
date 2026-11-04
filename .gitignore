@@ -1,5 +1,7 @@
 # built from lean-pres/ by CI
 public/lean/
+# built from waterproof-pres/ by CI
+public/waterproof/
 # CI caches
 .elan/
 .npm/

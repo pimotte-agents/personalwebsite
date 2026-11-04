@@ -1,0 +1,153 @@
+# ThEdu 2026 talk on Waterproof, as a wavesol talk (https://github.com/pimotte-agents/wavesol).
+# Converted from the beamer slides (pimotte/wp-demo, branch thedu): frames for what Waterproof is and its
+# context, then one frame for the paper with its sections (and the bonus figures, a detour) as sub-frames.
+# Preview with `npm run dev`; CI builds it into ../public/waterproof (served at /waterproof).
+$schema: ./node_modules/wavesol/schema/talk.schema.json
+title: The Educational Proof Assistant Waterproof in an Introductory Proof Course
+subtitle: Proof Construction and Learning Processes
+authors: [Pim Otte, Rogier Bos, Johan Commelin, Jim Portegies]
+venue: ThEdu 2026
+
+# umami statistics in the built site (not in `npm run dev`)
+head: ../analytics.html
+
+theme:
+  base: academic-light
+
+transitions:
+  default: fly
+
+layout:
+  algorithm: force
+
+nodes:
+  title: {}
+
+  waterproof:
+    type: frame
+    title: What is Waterproof?
+    children: [what-is-waterproof, demo]
+  what-is-waterproof: {}
+  demo: {}
+
+  context-section:
+    type: frame
+    title: Context
+    children: [context, related-work]
+  context: {}
+  related-work: {}
+
+  # the paper: its sections are frames inside this one
+  paper:
+    type: frame
+    title: The Educational Proof Assistant Waterproof in an Introductory Proof Course
+    children: [paper-title, methods-section, results, conclusion-section, bonus]
+    layout: { algorithm: grid }
+  paper-title: {}
+
+  methods-section:
+    type: frame
+    title: Methods
+    children: [research-questions, methods]
+  research-questions: {}
+  methods: {}
+
+  results:
+    type: frame
+    title: Results
+    children: [participants, quiz1, quiz1-math-b, proof-analysis, proof-steps, transfer, survey]
+  participants: {}
+  quiz1: {}
+  quiz1-math-b: {}
+  proof-analysis: { size: [1600, 1200] }
+  proof-steps: {}
+  transfer: { size: [1600, 1150] }
+  survey: {}
+
+  conclusion-section:
+    type: frame
+    title: Conclusion
+    children: [future-work, conclusion]
+  future-work: {}
+  conclusion: {}
+
+  bonus:
+    type: frame
+    title: "Bonus: Figures from the paper"
+    children: [fig-feedback, fig-hours, fig-timeontask, fig-questions, fig-screenshot, references]
+  fig-feedback: {}
+  fig-hours: {}
+  fig-timeontask: {}
+  fig-questions: {}
+  fig-screenshot: {}
+  references: { type: references, title: References }
+
+  # work in progress: design principles from the TFPIE paper
+  wip:
+    type: frame
+    title: Work in progress
+    children: [cnl, goudlokje]
+  cnl:
+    type: frame
+    title: Controlled natural language
+    children: [principles, trade-offs]
+  principles:
+    type: frame
+    title: Proposed design principles
+    children: [p1-close-to-paper, p1-exercise-types, p2-teacher-judgement, p3-help-feedback, p4-reflection]
+  p1-close-to-paper: {}
+  p1-exercise-types: {}
+  p2-teacher-judgement: {}
+  p3-help-feedback: {}
+  p4-reflection: {}
+  trade-offs:
+    type: frame
+    title: Trade-offs
+    children: [detail-automation]
+  detail-automation: {}
+  goudlokje:
+    type: frame
+    title: "Goudlokje: A worksheet linter"
+    children: [goudlokje-intro, goudlokje-functionality, goudlokje-p1, goudlokje-p2, goudlokje-p3, goudlokje-technical]
+  goudlokje-intro: {}
+  goudlokje-functionality: {}
+  goudlokje-p1: {}
+  goudlokje-p2: {}
+  goudlokje-p3: {}
+  goudlokje-technical: {}
+
+  thanks: {}
+
+edges:
+  # main path (Space); each frame is entered by zooming into its first child
+  - title -> waterproof: { default: true }
+  - waterproof -> what-is-waterproof: { default: true, transition: zoom-through }
+  - what-is-waterproof -> demo -> context-section: { default: true }
+  - context-section -> context: { default: true, transition: zoom-through }
+  - context -> related-work -> paper: { default: true }
+  - paper -> paper-title: { default: true, transition: zoom-through }
+  - paper-title -> methods-section: { default: true }
+  - methods-section -> research-questions: { default: true, transition: zoom-through }
+  - research-questions -> methods -> results: { default: true }
+  - results -> participants: { default: true, transition: zoom-through }
+  - participants -> quiz1 -> quiz1-math-b -> proof-analysis -> proof-steps -> transfer -> survey -> conclusion-section: { default: true }
+  - conclusion-section -> future-work: { default: true, transition: zoom-through }
+  - future-work -> conclusion -> wip: { default: true }
+  - wip -> cnl: { default: true, transition: zoom-through }
+  - cnl -> principles: { default: true, transition: zoom-through }
+  - principles -> p1-close-to-paper: { default: true, transition: zoom-through }
+  - p1-close-to-paper -> p2-teacher-judgement -> p3-help-feedback -> p4-reflection -> trade-offs: { default: true }
+  - trade-offs -> detail-automation: { default: true, transition: zoom-through }
+  # bonus off P1: exercise types that don't fit, then on to P2
+  - p1-close-to-paper -> p1-exercise-types: { label: "Exercises that don't fit" }
+  - p1-exercise-types -> p2-teacher-judgement: { default: true }
+  - detail-automation -> goudlokje: { default: true }
+  - goudlokje -> goudlokje-intro: { default: true, transition: zoom-through }
+  - goudlokje-intro -> goudlokje-functionality -> goudlokje-p1 -> goudlokje-p2 -> goudlokje-p3 -> goudlokje-technical -> thanks: { default: true }
+  - thanks -> title: { label: "Back to the start", transition: fade }
+
+  # appendix: the figures from the paper, for questions
+  - thanks -> bonus: { label: "Bonus: figures from the paper" }
+  - bonus -> fig-feedback: { default: true, transition: zoom-through }
+  - fig-feedback -> fig-hours -> fig-timeontask -> fig-questions -> fig-screenshot -> references: { default: true }
+  - references -> thanks: { default: true, label: "Back" }
