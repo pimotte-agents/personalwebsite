@@ -26,10 +26,11 @@ nodes:
   waterproof:
     type: frame
     title: What is Waterproof?
-    children: [what-is-waterproof, demo, architecture, analysis-rug]
+    children: [what-is-waterproof, demo, architecture, analysis-rug, context, tools, research]
+    layout: { algorithm: layered }
   what-is-waterproof: {}
   demo: {}
-  analysis-rug: { near: { below: architecture } }  # the library the installer installs, outside the architecture
+  analysis-rug: {}  # the library the installer installs, outside the architecture
 
   # the components of Waterproof; visited as a whole, its slides on demand
   architecture:
@@ -44,12 +45,37 @@ nodes:
   verbose-lean: {}
   dependencies-installer: {}
 
-  context-section:
-    type: frame
-    title: Context
-    children: [context, related-work]
   context: {}
-  related-work: {}
+
+  # side paths off Context: an overview slide, then one slide per tool or paper
+  tools:
+    type: frame
+    title: Educational tools
+    preview: titles
+    children: [educational-tools, mizar, isar, proofweb, naproche, lurch, edukera, diproche, deaduction, proofbuddy, yalep]
+  educational-tools: {}
+  mizar: {}
+  isar: {}
+  proofweb: {}
+  naproche: {}
+  lurch: {}
+  edukera: {}
+  diproche: {}
+  deaduction: {}
+  proofbuddy: {}
+  yalep: {}
+
+  research:
+    type: frame
+    title: Educational research
+    preview: titles
+    children: [educational-research, research-abundant-numbers, research-design-principles, research-service-design, research-cheating, research-proof-structure]
+  educational-research: {}
+  research-abundant-numbers: {}
+  research-design-principles: {}
+  research-service-design: {}
+  research-cheating: {}
+  research-proof-structure: {}
 
   # the paper: its sections are frames inside this one
   paper:
@@ -94,7 +120,7 @@ nodes:
   fig-timeontask: {}
   fig-questions: {}
   fig-screenshot: {}
-  references: { type: references, title: References }
+  references: { type: references, title: References, size: [3200, 1850] }
 
   # work in progress: design principles from the TFPIE paper
   wip:
@@ -136,7 +162,7 @@ edges:
   # main path (Space); each frame is entered by zooming into its first child
   - title -> waterproof: { default: true }
   - waterproof -> what-is-waterproof: { default: true, transition: zoom-through }
-  - what-is-waterproof -> demo -> architecture -> context-section: { default: true }
+  - what-is-waterproof -> demo -> architecture -> context -> paper: { default: true }
   # the architecture: Space shows the frame whole, then moves on; its slides are opened from the frame
   - vscode-extension -> waterproof-editor
   - vscode-extension -> rocq-waterproof
@@ -144,8 +170,13 @@ edges:
   - vscode-extension -> waterproof-genre
   - rocq-waterproof -> dependencies-installer
   - dependencies-installer -> analysis-rug
-  - context-section -> context: { default: true, transition: zoom-through }
-  - context -> related-work -> paper: { default: true }
+  # side paths off Context: through the tools or the papers, then back
+  - context -> educational-tools
+  - context -> educational-research
+  - educational-tools -> mizar -> isar -> proofweb -> naproche -> lurch -> edukera -> diproche -> deaduction -> proofbuddy -> yalep: { default: true }
+  - yalep -> context: { default: true, label: "Back to Context" }
+  - educational-research -> research-abundant-numbers -> research-design-principles -> research-service-design -> research-cheating -> research-proof-structure: { default: true }
+  - research-proof-structure -> context: { default: true, label: "Back to Context" }
   - paper -> paper-title: { default: true, transition: zoom-through }
   - paper-title -> methods-section: { default: true }
   - methods-section -> research-questions: { default: true, transition: zoom-through }
