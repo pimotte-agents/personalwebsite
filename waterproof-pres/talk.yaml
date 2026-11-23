@@ -26,9 +26,22 @@ nodes:
   waterproof:
     type: frame
     title: What is Waterproof?
-    children: [what-is-waterproof, demo]
+    children: [what-is-waterproof, demo, architecture, analysis-rug]
   what-is-waterproof: {}
   demo: {}
+  analysis-rug: { near: { below: architecture } }  # the library the installer installs, outside the architecture
+
+  # the components of Waterproof; visited as a whole, its slides on demand
+  architecture:
+    type: frame
+    title: Architecture
+    children: [vscode-extension, waterproof-editor, rocq-waterproof, waterproof-genre, verbose-lean, dependencies-installer]
+  vscode-extension: {}
+  waterproof-editor: {}
+  rocq-waterproof: {}
+  waterproof-genre: {}
+  verbose-lean: {}
+  dependencies-installer: {}
 
   context-section:
     type: frame
@@ -122,7 +135,14 @@ edges:
   # main path (Space); each frame is entered by zooming into its first child
   - title -> waterproof: { default: true }
   - waterproof -> what-is-waterproof: { default: true, transition: zoom-through }
-  - what-is-waterproof -> demo -> context-section: { default: true }
+  - what-is-waterproof -> demo -> architecture -> context-section: { default: true }
+  # the architecture: Space shows the frame whole, then moves on; its slides are opened from the frame
+  - vscode-extension -> waterproof-editor
+  - vscode-extension -> rocq-waterproof
+  - vscode-extension -> verbose-lean
+  - vscode-extension -> waterproof-genre
+  - rocq-waterproof -> dependencies-installer
+  - dependencies-installer -> analysis-rug
   - context-section -> context: { default: true, transition: zoom-through }
   - context -> related-work -> paper: { default: true }
   - paper -> paper-title: { default: true, transition: zoom-through }
