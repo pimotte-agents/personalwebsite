@@ -120,7 +120,7 @@ nodes:
   fig-timeontask: {}
   fig-questions: {}
   fig-screenshot: {}
-  references: { type: references, title: References, size: [3200, 1850] }
+  references: { type: references, title: References }
 
   # work in progress: design principles from the TFPIE paper
   wip:
