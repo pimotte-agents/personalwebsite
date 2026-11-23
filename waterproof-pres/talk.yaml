@@ -26,7 +26,7 @@ nodes:
   waterproof:
     type: frame
     title: What is Waterproof?
-    children: [what-is-waterproof, demo, context, tools, research, architecture, analysis-rug]
+    children: [what-is-waterproof, demo, context, architecture, analysis-rug]
     layout: { algorithm: layered }
   what-is-waterproof: {}
   demo: {}
@@ -48,6 +48,12 @@ nodes:
   context: {}
 
   # side paths off Context: an overview slide, then one slide per tool or paper
+  # the side paths off the Context slide, in their own frame next to "What is Waterproof?"
+  related:
+    type: frame
+    title: Context
+    children: [tools, research]
+
   tools:
     type: frame
     title: Educational tools
@@ -175,6 +181,8 @@ edges:
   - rocq-waterproof -> dependencies-installer
   - dependencies-installer -> analysis-rug
   # side paths off Context: through the tools or the papers, then back
+  # the Context frame itself, from the frame of "What is Waterproof?"
+  - waterproof -> related: { label: "Context" }
   - context -> educational-tools
   - context -> educational-research
   - educational-tools -> mizar -> isar -> proofweb -> naproche -> lurch -> edukera -> diproche -> deaduction -> proofbuddy -> yalep: { default: true }
