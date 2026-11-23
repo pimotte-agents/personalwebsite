@@ -16,6 +16,7 @@ theme:
 
 transitions:
   default: fly
+  local: pan  # nearby slides slide over; longer jumps keep the zoom-out of fly
 
 layout:
   algorithm: force
