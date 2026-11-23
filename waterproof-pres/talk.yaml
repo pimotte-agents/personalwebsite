@@ -95,9 +95,16 @@ nodes:
   methods-section:
     type: frame
     title: Methods
-    children: [research-questions, methods]
+    children: [research-questions, methods, methods-data, methods-intervention, methods-quiz-exercise, methods-reference-solution, methods-coding, methods-model, methods-surveys-observation]
   research-questions: {}
   methods: {}
+  methods-data: {}
+  methods-intervention: {}
+  methods-quiz-exercise: {}
+  methods-reference-solution: { size: [2560, 1440] }
+  methods-coding: {}
+  methods-model: {}
+  methods-surveys-observation: {}
 
   results:
     type: frame
@@ -193,7 +200,10 @@ edges:
   - paper -> paper-title: { default: true, transition: zoom-through }
   - paper-title -> methods-section: { default: true }
   - methods-section -> research-questions: { default: true, transition: zoom-through }
-  - research-questions -> methods -> results: { default: true }
+  - research-questions -> methods -> methods-data -> results: { default: true }
+  # side path off Data and analysis: the methods in detail, then on to the results
+  - methods-data -> methods-intervention: { label: "Methods in detail" }
+  - methods-intervention -> methods-quiz-exercise -> methods-reference-solution -> methods-coding -> methods-model -> methods-surveys-observation -> results: { default: true }
   - results -> participants: { default: true, transition: zoom-through }
   - participants -> quiz1 -> quiz1-math-b -> proof-analysis -> proof-steps -> transfer -> student-likert -> student-open-coding -> survey -> conclusion-section: { default: true }
   # side path off the Math B figure: the mixed model, then back on the main path
