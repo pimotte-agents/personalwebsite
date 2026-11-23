@@ -95,19 +95,23 @@ nodes:
   results:
     type: frame
     title: Results
-    children: [participants, quiz1, quiz1-math-b, proof-analysis, proof-steps, transfer, survey]
+    children: [participants, quiz1, quiz1-math-b, mixed-model, proof-analysis, proof-steps, transfer, student-likert, student-open-coding, survey]
   participants: {}
   quiz1: {}
   quiz1-math-b: {}
+  mixed-model: {}
   proof-analysis: { size: [1600, 1200] }
   proof-steps: {}
   transfer: { size: [1600, 1150] }
+  student-likert: {}
+  student-open-coding: {}
   survey: {}
 
   conclusion-section:
     type: frame
     title: Conclusion
-    children: [future-work, conclusion]
+    children: [limitations, future-work, conclusion]
+  limitations: {}
   future-work: {}
   conclusion: {}
 
@@ -182,8 +186,12 @@ edges:
   - methods-section -> research-questions: { default: true, transition: zoom-through }
   - research-questions -> methods -> results: { default: true }
   - results -> participants: { default: true, transition: zoom-through }
-  - participants -> quiz1 -> quiz1-math-b -> proof-analysis -> proof-steps -> transfer -> survey -> conclusion-section: { default: true }
-  - conclusion-section -> future-work: { default: true, transition: zoom-through }
+  - participants -> quiz1 -> quiz1-math-b -> proof-analysis -> proof-steps -> transfer -> student-likert -> student-open-coding -> survey -> conclusion-section: { default: true }
+  # side path off the Math B figure: the mixed model, then back on the main path
+  - quiz1-math-b -> mixed-model: { label: "Mixed model" }
+  - mixed-model -> proof-analysis: { default: true }
+  - conclusion-section -> limitations: { default: true, transition: zoom-through }
+  - limitations -> future-work: { default: true }
   - future-work -> conclusion -> wip: { default: true }
   - wip -> cnl: { default: true, transition: zoom-through }
   - cnl -> principles: { default: true, transition: zoom-through }

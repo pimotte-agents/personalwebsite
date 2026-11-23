@@ -2,7 +2,7 @@
 
 > Te bewijzen is dat $\forall y \in f(A), \exists x \in A, y = g(x)$.\
 > Neem $y \in f(A)$.\
-> $f(A) = \{f(x)\mid x \in A\}$, dus $\exists x' \in A, y = f(x)$.\
+> $f(A) = \{f(x)\mid x \in A\}$, dus $\exists x' \in A, y = f(x')$.\
 > Verkrijg deze $x' \in A$.\
 > Er geldt dus $y \in f(x')$.\
 > We moeten bewijzen dat $\exists x \in A, y = g(x)$.\
