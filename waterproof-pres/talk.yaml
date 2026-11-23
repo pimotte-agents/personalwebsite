@@ -26,7 +26,7 @@ nodes:
   waterproof:
     type: frame
     title: What is Waterproof?
-    children: [what-is-waterproof, demo, architecture, analysis-rug, context, tools, research]
+    children: [what-is-waterproof, demo, context, tools, research, architecture, analysis-rug]
     layout: { algorithm: layered }
   what-is-waterproof: {}
   demo: {}
@@ -162,7 +162,7 @@ edges:
   # main path (Space); each frame is entered by zooming into its first child
   - title -> waterproof: { default: true }
   - waterproof -> what-is-waterproof: { default: true, transition: zoom-through }
-  - what-is-waterproof -> demo -> architecture -> context -> paper: { default: true }
+  - what-is-waterproof -> demo -> context -> architecture -> paper: { default: true }
   # the architecture: Space shows the frame whole, then moves on; its slides are opened from the frame
   - vscode-extension -> waterproof-editor
   - vscode-extension -> rocq-waterproof

@@ -4,4 +4,4 @@
 
 Pim Otte, Rogier Bos, Johan Commelin, Jim Portegies
 
-*ThEdu 2026*
+*ThEdu 2026* [@otte2026educationalproofassistantwaterproof]
