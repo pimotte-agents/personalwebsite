@@ -4,5 +4,5 @@
 
 - Ties all components together
 - Communicates with the language servers (rocq-lsp, Lean) over LSP
-- Shows the proof goals
+- Shows the goals panel (infoview)
 - Provides tactic documentation and a symbol panel
