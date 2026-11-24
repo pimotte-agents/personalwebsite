@@ -27,9 +27,10 @@ nodes:
   waterproof:
     type: frame
     title: What is Waterproof?
-    children: [what-is-waterproof, demo, context, architecture, analysis-rug]
+    children: [what-is-waterproof, fig-screenshot, demo, context, architecture, analysis-rug]
     layout: { algorithm: layered }
   what-is-waterproof: {}
+  fig-screenshot: {}
   demo: {}
   analysis-rug: {}  # the library the installer installs, outside the architecture
 
@@ -132,12 +133,11 @@ nodes:
   bonus:
     type: frame
     title: "Bonus: Figures from the paper"
-    children: [fig-feedback, fig-hours, fig-timeontask, fig-questions, fig-screenshot, references]
+    children: [fig-feedback, fig-hours, fig-timeontask, fig-questions, references]
   fig-feedback: {}
   fig-hours: {}
   fig-timeontask: {}
   fig-questions: {}
-  fig-screenshot: {}
   references: { type: references, title: References }
 
   # work in progress: design principles from the TFPIE paper
@@ -152,10 +152,11 @@ nodes:
   principles:
     type: frame
     title: Proposed design principles
-    children: [p1-close-to-paper, p1-exercise-types, p2-teacher-judgement, p3-help-feedback, p4-reflection]
+    children: [p1-close-to-paper, p1-exercise-types, p2-teacher-judgement, p2-configuration, p3-help-feedback, p4-reflection]
   p1-close-to-paper: {}
   p1-exercise-types: {}
   p2-teacher-judgement: {}
+  p2-configuration: {}
   p3-help-feedback: {}
   p4-reflection: {}
   trade-offs:
@@ -174,13 +175,14 @@ nodes:
   goudlokje-p3: {}
   goudlokje-technical: {}
 
+  using-waterproof: {}
   thanks: {}
 
 edges:
   # main path (Space); each frame is entered by zooming into its first child
   - title -> waterproof: { default: true }
   - waterproof -> what-is-waterproof: { default: true, transition: zoom-through }
-  - what-is-waterproof -> demo -> context -> architecture -> paper: { default: true }
+  - what-is-waterproof -> fig-screenshot -> demo -> context -> architecture -> paper: { default: true }
   # the architecture: Space shows the frame whole, then moves on; its slides are opened from the frame
   - vscode-extension -> waterproof-editor
   - vscode-extension -> rocq-waterproof
@@ -220,13 +222,16 @@ edges:
   # bonus off P1: exercise types that don't fit, then on to P2
   - p1-close-to-paper -> p1-exercise-types: { label: "Exercises that don't fit" }
   - p1-exercise-types -> p2-teacher-judgement: { default: true }
+  # side path off P2: an example of per-sheet configuration, then on to P3
+  - p2-teacher-judgement -> p2-configuration: { label: "Configuration example" }
+  - p2-configuration -> p3-help-feedback: { default: true }
   - detail-automation -> goudlokje: { default: true }
   - goudlokje -> goudlokje-intro: { default: true, transition: zoom-through }
-  - goudlokje-intro -> goudlokje-functionality -> goudlokje-p1 -> goudlokje-p2 -> goudlokje-p3 -> goudlokje-technical -> thanks: { default: true }
+  - goudlokje-intro -> goudlokje-functionality -> goudlokje-p1 -> goudlokje-p2 -> goudlokje-p3 -> goudlokje-technical -> using-waterproof -> thanks: { default: true }
   - thanks -> title: { label: "Back to the start", transition: fade }
 
   # appendix: the figures from the paper, for questions
   - thanks -> bonus: { label: "Bonus: figures from the paper" }
   - bonus -> fig-feedback: { default: true, transition: zoom-through }
-  - fig-feedback -> fig-hours -> fig-timeontask -> fig-questions -> fig-screenshot -> references: { default: true }
+  - fig-feedback -> fig-hours -> fig-timeontask -> fig-questions -> references: { default: true }
   - references -> thanks: { default: true, label: "Back" }

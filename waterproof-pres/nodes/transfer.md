@@ -13,4 +13,4 @@
 > &emsp;dus het is waar dat $y = g(x')$.\
 > We concluderen dat $g$ surjectief is.
 
-*Dutch proof of surjectivity of a function given on the exam by an active Waterproof user, showing a Waterproof-inspired proof*
+*Anecdotal: a Dutch proof of surjectivity of a function given on the exam by an active Waterproof user, showing a Waterproof-inspired proof*
