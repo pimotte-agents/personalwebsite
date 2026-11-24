@@ -39,13 +39,15 @@ nodes:
     type: frame
     title: Architecture
     preview: titles
-    children: [vscode-extension, waterproof-editor, rocq-waterproof, waterproof-genre, verbose-lean, dependencies-installer]
+    children: [vscode-extension, waterproof-editor, rocq-waterproof, waterproof-genre, verbose-lean, dependencies-installer, sheet-rocq, sheet-lean]
   vscode-extension: {}
   waterproof-editor: {}
   rocq-waterproof: {}
   waterproof-genre: {}
   verbose-lean: {}
   dependencies-installer: {}
+  sheet-rocq: { size: [2560, 1440] }
+  sheet-lean: { size: [2560, 1440] }
 
   context: {}
 
@@ -110,10 +112,13 @@ nodes:
   results:
     type: frame
     title: Results
-    children: [participants, quiz1, quiz1-math-b, mixed-model, proof-analysis, proof-steps, transfer, student-likert, student-open-coding, survey]
+    children: [participants, baseline-grades, quiz1, later-grades, quiz1-math-b, mixed-model, proof-analysis, proof-steps, transfer, student-likert, student-open-coding, student-quotes-stopping, survey]
   participants: {}
   quiz1: {}
   quiz1-math-b: {}
+  baseline-grades: {}
+  later-grades: { size: [2000, 1125] }
+  student-quotes-stopping: {}
   mixed-model: {}
   proof-analysis: { size: [1600, 1200] }
   proof-steps: {}
@@ -152,11 +157,10 @@ nodes:
   principles:
     type: frame
     title: Proposed design principles
-    children: [p1-close-to-paper, p1-exercise-types, p2-teacher-judgement, p2-configuration, p3-help-feedback, p4-reflection]
+    children: [p1-close-to-paper, p1-exercise-types, p2-teacher-judgement, p3-help-feedback, p4-reflection]
   p1-close-to-paper: {}
   p1-exercise-types: {}
   p2-teacher-judgement: {}
-  p2-configuration: {}
   p3-help-feedback: {}
   p4-reflection: {}
   trade-offs:
@@ -190,6 +194,9 @@ edges:
   - vscode-extension -> waterproof-genre
   - rocq-waterproof -> dependencies-installer
   - dependencies-installer -> analysis-rug
+  # example sheets: the file format each back end reads
+  - rocq-waterproof -> sheet-rocq
+  - waterproof-genre -> sheet-lean
   # side paths off Context: through the tools or the papers, then back
   # the Context frame itself, from the frame of "What is Waterproof?"
   - waterproof -> related: { label: "Context" }
@@ -210,6 +217,13 @@ edges:
   - participants -> quiz1 -> quiz1-math-b -> proof-analysis -> proof-steps -> transfer -> student-likert -> student-open-coding -> survey -> conclusion-section: { default: true }
   # side path off the Math B figure: the mixed model, then back on the main path
   - quiz1-math-b -> mixed-model: { label: "Mixed model" }
+  # side paths: baseline and later grades per group (descriptive), and student quotes on stopping
+  - participants -> baseline-grades: { label: "Baseline per group" }
+  - baseline-grades -> quiz1: { default: true }
+  - quiz1 -> later-grades: { label: "Later grades" }
+  - later-grades -> quiz1-math-b: { default: true }
+  - student-open-coding -> student-quotes-stopping: { label: "Why students stopped" }
+  - student-quotes-stopping -> survey: { default: true }
   - mixed-model -> proof-analysis: { default: true }
   - conclusion-section -> limitations: { default: true, transition: zoom-through }
   - limitations -> future-work: { default: true }
@@ -222,9 +236,6 @@ edges:
   # bonus off P1: exercise types that don't fit, then on to P2
   - p1-close-to-paper -> p1-exercise-types: { label: "Exercises that don't fit" }
   - p1-exercise-types -> p2-teacher-judgement: { default: true }
-  # side path off P2: an example of per-sheet configuration, then on to P3
-  - p2-teacher-judgement -> p2-configuration: { label: "Configuration example" }
-  - p2-configuration -> p3-help-feedback: { default: true }
   - detail-automation -> goudlokje: { default: true }
   - goudlokje -> goudlokje-intro: { default: true, transition: zoom-through }
   - goudlokje-intro -> goudlokje-functionality -> goudlokje-p1 -> goudlokje-p2 -> goudlokje-p3 -> goudlokje-technical -> using-waterproof -> thanks: { default: true }
