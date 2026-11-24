@@ -16,6 +16,7 @@ theme:
 
 transitions:
   default: fly
+  local: pan  # nearby slides slide over; longer jumps keep the zoom-out of fly
 
 layout:
   algorithm: force
@@ -26,16 +27,65 @@ nodes:
   waterproof:
     type: frame
     title: What is Waterproof?
-    children: [what-is-waterproof, demo]
+    children: [what-is-waterproof, fig-screenshot, demo, context, architecture, analysis-rug]
+    layout: { algorithm: layered }
   what-is-waterproof: {}
+  fig-screenshot: {}
   demo: {}
+  analysis-rug: {}  # the library the installer installs, outside the architecture
 
-  context-section:
+  # the components of Waterproof; visited as a whole, its slides on demand
+  architecture:
+    type: frame
+    title: Architecture
+    preview: titles
+    children: [vscode-extension, waterproof-editor, rocq-waterproof, waterproof-genre, verbose-lean, dependencies-installer, sheet-rocq, sheet-lean]
+  vscode-extension: {}
+  waterproof-editor: {}
+  rocq-waterproof: {}
+  waterproof-genre: {}
+  verbose-lean: {}
+  dependencies-installer: {}
+  sheet-rocq: { size: [2560, 1440] }
+  sheet-lean: { size: [2560, 1440] }
+
+  context: {}
+
+  # side paths off Context: an overview slide, then one slide per tool or paper
+  # the side paths off the Context slide, in their own frame next to "What is Waterproof?"
+  related:
     type: frame
     title: Context
-    children: [context, related-work]
-  context: {}
-  related-work: {}
+    children: [tools, research]
+
+  tools:
+    type: frame
+    title: Educational* tools
+    preview: titles
+    children: [educational-tools, mizar, isar, proofweb, naproche, lurch, edukera, diproche, deaduction, proofbuddy, yalep]
+  educational-tools: {}
+  mizar: {}
+  isar: {}
+  proofweb: {}
+  naproche: {}
+  lurch: {}
+  edukera: {}
+  diproche: {}
+  deaduction: {}
+  proofbuddy: {}
+  yalep: {}
+
+  research:
+    type: frame
+    title: Educational research
+    preview: titles
+    children: [educational-research, research-abundant-numbers, research-design-principles, research-service-design, research-cheating, research-proof-structure]
+  educational-research: {}
+  research-abundant-numbers: {}
+  research-design-principles: {}
+  research-service-design: {}
+  research-cheating: {}
+  research-proof-structure: {}
 
   # the paper: its sections are frames inside this one
   paper:
@@ -48,38 +98,51 @@ nodes:
   methods-section:
     type: frame
     title: Methods
-    children: [research-questions, methods]
+    children: [research-questions, methods, methods-data, methods-intervention, methods-quiz-exercise, methods-reference-solution, methods-coding, methods-model, methods-surveys-observation]
   research-questions: {}
   methods: {}
+  methods-data: {}
+  methods-intervention: {}
+  methods-quiz-exercise: {}
+  methods-reference-solution: { size: [2560, 1440] }
+  methods-coding: {}
+  methods-model: {}
+  methods-surveys-observation: {}
 
   results:
     type: frame
     title: Results
-    children: [participants, quiz1, quiz1-math-b, proof-analysis, proof-steps, transfer, survey]
+    children: [participants, baseline-grades, quiz1, later-grades, quiz1-math-b, mixed-model, proof-analysis, proof-steps, transfer, student-likert, student-open-coding, student-quotes-stopping, survey]
   participants: {}
   quiz1: {}
   quiz1-math-b: {}
+  baseline-grades: {}
+  later-grades: { size: [2000, 1125] }
+  student-quotes-stopping: {}
+  mixed-model: {}
   proof-analysis: { size: [1600, 1200] }
   proof-steps: {}
   transfer: { size: [1600, 1150] }
+  student-likert: {}
+  student-open-coding: {}
   survey: {}
 
   conclusion-section:
     type: frame
     title: Conclusion
-    children: [future-work, conclusion]
+    children: [limitations, future-work, conclusion]
+  limitations: {}
   future-work: {}
   conclusion: {}
 
   bonus:
     type: frame
     title: "Bonus: Figures from the paper"
-    children: [fig-feedback, fig-hours, fig-timeontask, fig-questions, fig-screenshot, references]
+    children: [fig-feedback, fig-hours, fig-timeontask, fig-questions, references]
   fig-feedback: {}
   fig-hours: {}
   fig-timeontask: {}
   fig-questions: {}
-  fig-screenshot: {}
   references: { type: references, title: References }
 
   # work in progress: design principles from the TFPIE paper
@@ -116,22 +179,55 @@ nodes:
   goudlokje-p3: {}
   goudlokje-technical: {}
 
+  using-waterproof: {}
   thanks: {}
 
 edges:
   # main path (Space); each frame is entered by zooming into its first child
   - title -> waterproof: { default: true }
   - waterproof -> what-is-waterproof: { default: true, transition: zoom-through }
-  - what-is-waterproof -> demo -> context-section: { default: true }
-  - context-section -> context: { default: true, transition: zoom-through }
-  - context -> related-work -> paper: { default: true }
+  - what-is-waterproof -> fig-screenshot -> demo -> context -> architecture -> paper: { default: true }
+  # the architecture: Space shows the frame whole, then moves on; its slides are opened from the frame
+  - vscode-extension -> waterproof-editor
+  - vscode-extension -> rocq-waterproof
+  - vscode-extension -> verbose-lean
+  - vscode-extension -> waterproof-genre
+  - rocq-waterproof -> dependencies-installer
+  - dependencies-installer -> analysis-rug
+  # example sheets: the file format each back end reads
+  - rocq-waterproof -> sheet-rocq
+  - waterproof-genre -> sheet-lean
+  - verbose-lean -> sheet-lean
+  # side paths off Context: through the tools or the papers, then back
+  # the Context frame itself, from the frame of "What is Waterproof?"
+  - waterproof -> related: { label: "Context" }
+  - context -> educational-tools
+  - context -> educational-research
+  - educational-tools -> mizar -> isar -> proofweb -> naproche -> lurch -> edukera -> diproche -> deaduction -> proofbuddy -> yalep: { default: true }
+  - yalep -> context: { default: true, label: "Back to Context" }
+  - educational-research -> research-abundant-numbers -> research-design-principles -> research-service-design -> research-cheating -> research-proof-structure: { default: true }
+  - research-proof-structure -> context: { default: true, label: "Back to Context" }
   - paper -> paper-title: { default: true, transition: zoom-through }
   - paper-title -> methods-section: { default: true }
   - methods-section -> research-questions: { default: true, transition: zoom-through }
-  - research-questions -> methods -> results: { default: true }
+  - research-questions -> methods -> methods-data -> results: { default: true }
+  # side path off Data and analysis: the methods in detail, then on to the results
+  - methods-data -> methods-intervention: { label: "Methods in detail" }
+  - methods-intervention -> methods-quiz-exercise -> methods-reference-solution -> methods-coding -> methods-model -> methods-surveys-observation -> results: { default: true }
   - results -> participants: { default: true, transition: zoom-through }
-  - participants -> quiz1 -> quiz1-math-b -> proof-analysis -> proof-steps -> transfer -> survey -> conclusion-section: { default: true }
-  - conclusion-section -> future-work: { default: true, transition: zoom-through }
+  - participants -> quiz1 -> quiz1-math-b -> proof-analysis -> proof-steps -> transfer -> student-likert -> student-open-coding -> survey -> conclusion-section: { default: true }
+  # side path off the Math B figure: the mixed model, then back on the main path
+  - quiz1-math-b -> mixed-model: { label: "Mixed model" }
+  # side paths: baseline and later grades per group (descriptive), and student quotes on stopping
+  - participants -> baseline-grades: { label: "Baseline per group" }
+  - baseline-grades -> quiz1: { default: true }
+  - quiz1 -> later-grades: { label: "Later grades" }
+  - later-grades -> quiz1-math-b: { default: true }
+  - student-open-coding -> student-quotes-stopping: { label: "Why students stopped" }
+  - student-quotes-stopping -> survey: { default: true }
+  - mixed-model -> proof-analysis: { default: true }
+  - conclusion-section -> limitations: { default: true, transition: zoom-through }
+  - limitations -> future-work: { default: true }
   - future-work -> conclusion -> wip: { default: true }
   - wip -> cnl: { default: true, transition: zoom-through }
   - cnl -> principles: { default: true, transition: zoom-through }
@@ -143,11 +239,11 @@ edges:
   - p1-exercise-types -> p2-teacher-judgement: { default: true }
   - detail-automation -> goudlokje: { default: true }
   - goudlokje -> goudlokje-intro: { default: true, transition: zoom-through }
-  - goudlokje-intro -> goudlokje-functionality -> goudlokje-p1 -> goudlokje-p2 -> goudlokje-p3 -> goudlokje-technical -> thanks: { default: true }
+  - goudlokje-intro -> goudlokje-functionality -> goudlokje-p1 -> goudlokje-p2 -> goudlokje-p3 -> goudlokje-technical -> using-waterproof -> thanks: { default: true }
   - thanks -> title: { label: "Back to the start", transition: fade }
 
   # appendix: the figures from the paper, for questions
   - thanks -> bonus: { label: "Bonus: figures from the paper" }
   - bonus -> fig-feedback: { default: true, transition: zoom-through }
-  - fig-feedback -> fig-hours -> fig-timeontask -> fig-questions -> fig-screenshot -> references: { default: true }
+  - fig-feedback -> fig-hours -> fig-timeontask -> fig-questions -> references: { default: true }
   - references -> thanks: { default: true, label: "Back" }

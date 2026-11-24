@@ -1,4 +1,5 @@
 # Conclusion
 
-- Waterproof helps students to make their proofs more explicit.
-- Waterproof might be extra helpful for Computer Science double majors.
+- Active Waterproof users write more explicit proofs.
+- Students report that Waterproof helps them learn about proof structure and proof writing.
+- Quasi-experiment: this points towards an effect, rather than proving a causal one.
