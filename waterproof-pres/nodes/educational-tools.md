@@ -1,4 +1,4 @@
-# Educational tools
+# Educational* tools
 
 - [Mizar](#mizar) (1973): proof checker with a language close to mathematical vernacular
 - [Isar](#isar) (1999): Isabelle's language for readable, structured proofs

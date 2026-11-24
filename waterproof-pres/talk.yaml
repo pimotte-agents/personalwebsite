@@ -57,7 +57,7 @@ nodes:
 
   tools:
     type: frame
-    title: Educational tools
+    title: Educational* tools
     preview: titles
     children: [educational-tools, mizar, isar, proofweb, naproche, lurch, edukera, diproche, deaduction, proofbuddy, yalep]
   educational-tools: {}
