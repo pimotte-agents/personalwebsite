@@ -197,6 +197,7 @@ edges:
   # example sheets: the file format each back end reads
   - rocq-waterproof -> sheet-rocq
   - waterproof-genre -> sheet-lean
+  - verbose-lean -> sheet-lean
   # side paths off Context: through the tools or the papers, then back
   # the Context frame itself, from the frame of "What is Waterproof?"
   - waterproof -> related: { label: "Context" }

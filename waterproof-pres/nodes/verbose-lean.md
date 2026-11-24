@@ -9,3 +9,5 @@ Lean library, written by Patrick Massot [@massot2024verbose]:
 - Help functionality
 - Bespoke error messages
 - Internationalization: English and French
+
+[Example sheet](#sheet-lean)
