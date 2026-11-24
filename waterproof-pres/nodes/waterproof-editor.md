@@ -6,6 +6,6 @@
 - Displays exercise sheets: text in Markdown or LaTeX, mixed with code
 - Supports:
   - Input areas that limit where students can type
-  - LaTeX
   - Hints: collapsible regions
+  - Blocks hidden for students
 - Also runs in the browser, in the [demo](#demo)
