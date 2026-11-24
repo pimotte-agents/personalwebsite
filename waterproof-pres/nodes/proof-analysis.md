@@ -14,5 +14,5 @@
 | - Case $\neg p(x)$. | signpost-case |
 | Assume that $\neg p(x)$. | continued |
 | It holds that $\neg p(x)$. | continued |
-| We conclude that $(\neg p(x)) \lor (\exists y \in \mathbb{R},\, q(y))$. | or-intro, signpost-concl |
+| We conclude that $(\neg p(x)) \lor (\exists y \in \mathbb{R},\, q(y))$. | $\vee$-intro, signpost-concl |
 | End of proof. | continued |

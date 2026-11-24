@@ -1,5 +1,5 @@
 ---
 type: image
-title: Performance vs Math B grade
+title: Performance vs secondary school grade (Math B)
 src: ../figures/quiz1.png
 ---

@@ -1,6 +1,6 @@
 # Mixed model for the first quiz
 
-*Fixed effects: quiz1 ~ num_wp_ex + math_B + pretest_grade + (1 | study programme) + (1 | group); all numerical variables standardised*
+*Fixed effects: quiz1 ~ num_wp_ex + math_B + pretest_grade + (1 | study programme) + (1 | teacher); all numerical variables standardised*
 
 | Term | Estimate | SE | df | $t$ | $p$ |
 |:--|--:|--:|--:|--:|--:|
